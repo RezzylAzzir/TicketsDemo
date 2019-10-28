@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using TicketsDemo.Data.Repositories;
 using TicketsDemo.Domain.Interfaces;
 using TicketsDemo.Models;
+using Ninject;
 
 namespace TicketsDemo.Controllers
 {
@@ -18,13 +19,16 @@ namespace TicketsDemo.Controllers
         private ITicketService _tickServ;
         private IPriceCalculationStrategy _priceCalc;
         private ITrainRepository _trainRepo;
+        private IAgenciesRepository _agenciesRepo;
 
-        public RunController(ITicketRepository tick, IRunRepository run, 
+        public RunController(ITicketRepository tick, IRunRepository run,
             IReservationService resServ,
             ITicketService tickServ,
             IPriceCalculationStrategy priceCalcStrategy,
             IReservationRepository reservationRepo,
-            ITrainRepository trainRepo) {
+            ITrainRepository trainRepo,
+            IAgenciesRepository agenciesRepo)
+        {
             _tickRepo = tick;
             _runRepo = run;
             _resServ = resServ;
@@ -32,23 +36,29 @@ namespace TicketsDemo.Controllers
             _priceCalc = priceCalcStrategy;
             _reservationRepo = reservationRepo;
             _trainRepo = trainRepo;
+            _agenciesRepo = agenciesRepo;
         }
 
-        public ActionResult Index(int id) {
+        public ActionResult Index(int id)
+        {
             var run = _runRepo.GetRunDetails(id);
             var train = _trainRepo.GetTrainDetails(run.TrainId);
-            var model = new RunViewModel() {
+            var agency = _agenciesRepo.GetAgencyDetails(train.AgencyId);
+            var model = new RunViewModel()
+            {
                 RunDate = run.Date,
                 Carriages = train.Carriages.ToDictionary(x => x.Number),
                 PlacesByCarriage = run.Places.GroupBy(x => x.CarriageNumber).ToDictionary(x => x.Key, x => x.ToList()),
                 ReservedPlaces = run.Places.Where(p => _resServ.PlaceIsOccupied(p)).Select(p => p.Id).ToList(),
                 Train = train,
+                Agency = agency,
             };
 
             return View(model);
         }
 
-        public ActionResult ReservePlace(int placeId) {
+        public ActionResult ReservePlace(int placeId)
+        {
             var place = _runRepo.GetPlaceInRun(placeId);
 
             var reservation = _resServ.Reserve(place);
@@ -60,6 +70,7 @@ namespace TicketsDemo.Controllers
                 PriceComponents = _priceCalc.CalculatePrice(place),
                 Date = place.Run.Date,
                 Train = _trainRepo.GetTrainDetails(place.Run.TrainId),
+                //Agency = _agenciesRepo.GetAgencyDetails(place.Run.AgencyId),
             };
 
             return View(model);
@@ -68,7 +79,7 @@ namespace TicketsDemo.Controllers
         [HttpPost]
         public ActionResult CreateTicket(CreateTicketModel model)
         {
-            var tick = _tickServ.CreateTicket(model.ReservationId,model.FirstName,model.LastName);
+            var tick = _tickServ.CreateTicket(model.ReservationId, model.FirstName, model.LastName);
             return RedirectToAction("Ticket", new { id = tick.Id });
         }
 
@@ -83,7 +94,7 @@ namespace TicketsDemo.Controllers
             ticketWM.PlaceNumber = placeInRun.Number;
             ticketWM.Date = placeInRun.Run.Date;
             ticketWM.Train = _trainRepo.GetTrainDetails(placeInRun.Run.TrainId);
-
+            //ticketWM.Agency = _agenciesRepo.GetAgencyDetails(placeInRun.Run.AgencyId);
             return View(ticketWM);
         }
 

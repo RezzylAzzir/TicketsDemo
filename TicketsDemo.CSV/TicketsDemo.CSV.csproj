@@ -51,6 +51,10 @@
       <Project>{c3a581a6-f841-4600-b87d-ba4bd3000e7a}</Project>
       <Name>TicketsDemo.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TicketsDemo.EF\TicketsDemo.EF.csproj">
+      <Project>{e9437256-3145-47bf-81a3-c69fd4de95f4}</Project>
+      <Name>TicketsDemo.EF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

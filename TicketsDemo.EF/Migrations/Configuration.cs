@@ -20,12 +20,12 @@ namespace TicketsDemo.EF.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data. E.g.
-            
+
             Func<List<Place>> placeGenerator = () =>
             {
                 var retIt = new List<Place>();
                 Random random = new Random();
-                 
+
 
                 for (int i = 0; i < 100; i++)
                 {
@@ -43,28 +43,28 @@ namespace TicketsDemo.EF.Migrations
                   Number = 90,
                   StartLocation = "Kiev",
                   EndLocation = "Odessa",
-                  Carriages = new List<Carriage>() { 
-                      new Carriage() { 
+                  Carriages = new List<Carriage>() {
+                      new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.SecondClassSleeping,
                           DefaultPrice = 100m,
                           Number = 1,
-                      },new Carriage() { 
+                      },new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.SecondClassSleeping,
                           DefaultPrice = 100m,
                           Number = 2,
-                      },new Carriage() { 
+                      },new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.FirstClassSleeping,
                           DefaultPrice = 120m,
                           Number = 3,
-                      },new Carriage() { 
+                      },new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.FirstClassSleeping,
                           DefaultPrice = 130m,
                           Number = 4,
-                      } 
+                      }
                   }
               },
               new Train
@@ -72,28 +72,51 @@ namespace TicketsDemo.EF.Migrations
                   Number = 720,
                   StartLocation = "Kiev",
                   EndLocation = "Vinnitsa",
-                  Carriages = new List<Carriage>() { 
-                      new Carriage() { 
+                  Carriages = new List<Carriage>() {
+                      new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.Sedentary,
                           DefaultPrice = 40m,
                           Number = 1,
-                      },new Carriage() { 
+                      },new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.Sedentary,
                           DefaultPrice = 40m,
                           Number = 2,
-                      },new Carriage() { 
+                      },new Carriage() {
                           Places = placeGenerator(),
                           Type = CarriageType.Sedentary,
                           DefaultPrice = 40m,
                           Number = 3,
-                      } 
+                      }
                   }
               }
 
             );
-            
+            context.Agencies.AddOrUpdate(
+              t => t.Name,
+              new Agency
+              {
+                  GovernmentNumber = 228,
+                  Name = "BPS",
+                  AgencyPay = 1.25m,
+                  Trains = new List<Train>(),
+              },
+              new Agency
+              {
+                  GovernmentNumber = 322,
+                  Name = "LMS",
+                  AgencyPay = 1.45m,
+                  Trains = new List<Train>(),
+              },
+              new Agency
+              {
+                  GovernmentNumber = 322,
+                  Name = "KMS",
+                  AgencyPay = 1.20m,
+                  Trains = new List<Train>(),
+              }
+              );
         }
     }
 }

@@ -15,5 +15,7 @@ namespace TicketsDemo.Models
         public DateTime Date { get; set; }
 
         public int PlaceNumber { get; set; }
+
+        public Agency Agency { get; set; }
     }
 }

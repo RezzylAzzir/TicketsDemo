@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TicketsDemo.Data.Entities
 {
-    public enum CarriageType { Sedentary=1, FirstClassSleeping=2, SecondClassSleeping=3 }
+    public enum CarriageType { Sedentary = 1, FirstClassSleeping = 2, SecondClassSleeping = 3 }
 
     public class Carriage
     {

@@ -9,6 +9,8 @@ namespace TicketsDemo.Models
     public class ReservationViewModel
     {
         public DateTime Date { get; set; }
+
+        public Agency Agency { get; set; }
         public Train Train { get; set; }
         public Reservation Reservation { get; set; }
         public PlaceInRun PlaceInRun { get; set; }

@@ -8,6 +8,7 @@ namespace TicketsDemo.CSV.CSVDTO
 {
     public class CarriageCSV
     {
+        public string Number { get; set; }
         public string Type { get; set; }
         public string Places { get; set; }
         public string Price { get; set; }

@@ -10,8 +10,13 @@ namespace TicketsDemo.Data.Entities
     {
         public int Id { get; set; }
         public int Number { get; set; }
+        public int AgencyId { get; set; }
         public string StartLocation { get; set; }
         public string EndLocation { get; set; }
         public List<Carriage> Carriages { get; set; }
+
+        public Agency Agency { get; set; }
+
+
     }
 }

@@ -13,5 +13,7 @@ namespace TicketsDemo.Models
         public Train Train { get; set; }
         public List<Run> Runs { get; set; }
         public List<DateTime> AvailableDates { get; set; }
+
+        public Agency Agency { get; set; }
     }
 }

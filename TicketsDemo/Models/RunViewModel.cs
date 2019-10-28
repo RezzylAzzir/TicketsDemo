@@ -10,6 +10,8 @@ namespace TicketsDemo.Models
     {
         public Train Train { get; set; }
 
+        public Agency Agency { get; set; }
+
         public DateTime RunDate { get; set; }
 
         public Dictionary<int, Carriage> Carriages { get; set; }

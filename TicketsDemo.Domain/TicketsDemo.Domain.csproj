@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DefaultImplementations\AgencyCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\FileLogger.cs" />
     <Compile Include="DefaultImplementations\DefaultPriceCalculationStrategy.cs" />
     <Compile Include="DefaultImplementations\ReservationService.cs" />

@@ -11,12 +11,15 @@ namespace TicketsDemo.Controllers
     {
         private ISchedule _schedule;
         private ITrainRepository _trainRepo;
+        private IAgenciesRepository _agenciesRepo;
         private IRunRepository _runRepo;
 
-        public ScheduleController(ISchedule schedule, ITrainRepository trainRepo, IRunRepository runRepo) {
+        public ScheduleController(ISchedule schedule, ITrainRepository trainRepo, IRunRepository runRepo, IAgenciesRepository agenciesRepo)
+        {
             _schedule = schedule;
             _trainRepo = trainRepo;
             _runRepo = runRepo;
+            _agenciesRepo = agenciesRepo;
         }
 
         public ActionResult Index()
@@ -29,27 +32,31 @@ namespace TicketsDemo.Controllers
                 ScheduleEnd = endDate,
                 Runs = _runRepo.GetRuns(startDate, endDate),
                 Trains = _trainRepo.GetAllTrains().ToDictionary(x => x.Id)
+
             };
 
             return View(model);
         }
 
-        public ActionResult Train(int id) {
+        public ActionResult Train(int id)
+        {
             var startDate = DateTime.Now;
             var endDate = startDate.AddMonths(1);
             var model = new TrainDetailsViewModel()
             {
                 ScheduleStart = startDate,
                 ScheduleEnd = endDate,
-                Runs = _runRepo.GetRuns(startDate, endDate,id),
+                Runs = _runRepo.GetRuns(startDate, endDate, id),
                 Train = _trainRepo.GetTrainDetails(id),
-                AvailableDates = _schedule.GetAvailableDatesForNewRun(id,startDate,endDate)
+                Agency = _agenciesRepo.GetAgencyDetails(_trainRepo.GetTrainDetails(id).AgencyId),
+                AvailableDates = _schedule.GetAvailableDatesForNewRun(id, startDate, endDate)
             };
-            
-            return View(model);      
+
+            return View(model);
         }
-        
-        public ActionResult CreateRun(int trainId, DateTime date) {
+
+        public ActionResult CreateRun(int trainId, DateTime date)
+        {
             _schedule.CreateRun(trainId, date);
             return RedirectToAction("Train", new { id = trainId });
         }

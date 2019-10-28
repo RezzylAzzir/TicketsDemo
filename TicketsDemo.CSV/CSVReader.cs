@@ -9,7 +9,8 @@ namespace TicketsDemo.CSV
 {
     public class CSVReader : ICSVReader
     {
-        public List<T> ReadFile<T>(string file) {
+        public List<T> ReadFile<T>(string file)
+        {
             using (var reader = new StreamReader(File.OpenRead(file)))
             {
 
@@ -22,7 +23,7 @@ namespace TicketsDemo.CSV
                 while (!reader.EndOfStream)
                 {
                     var line = reader.ReadLine();
-                    var valuesArray = line.Split(';');
+                    var valuesArray = line.Split(',');
                     if (titles == null)
                     {
                         titles = new Dictionary<int, string>();
