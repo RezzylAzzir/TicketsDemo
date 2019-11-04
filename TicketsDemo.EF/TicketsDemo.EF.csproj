@@ -90,6 +90,10 @@
     <Compile Include="Migrations\201910280115371_9.Designer.cs">
       <DependentUpon>201910280115371_9.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911041033445_10.cs" />
+    <Compile Include="Migrations\201911041033445_10.Designer.cs">
+      <DependentUpon>201911041033445_10.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgenciesRepository.cs" />
@@ -142,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910280115371_9.resx">
       <DependentUpon>201910280115371_9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911041033445_10.resx">
+      <DependentUpon>201911041033445_10.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

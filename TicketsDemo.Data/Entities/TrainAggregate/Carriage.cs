@@ -16,7 +16,7 @@ namespace TicketsDemo.Data.Entities
         public List<Place> Places { get; set; }
         public int TrainId { get; set; }
         public Train Train { get; set; }
-
+        public int places { get; set; }
         public int Number { get; set; }
     }
 }
